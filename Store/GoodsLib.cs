@@ -4,60 +4,42 @@ namespace Store
 {
     public abstract class Goods
     {
-        private string _id;
-        private string _name;
-        private int _price;
-        public string Id
-        {
-            get { return _id; }
-            set { _id = value; }
-        }
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
-        public int Price
-        {
-            get { return _price; }
-            set { _price = value; }
-        }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Price { get; set; }
 
-        
-
+        public Goods(int _id, string _name, int _price)
+        {
+            Id = _id;
+            Name = _name;
+            Price = _price;
+        }
     }
     public class Laptop : Goods 
     {
-        private int _ram;
-        private string _proc;
-        public int Ram
-        {
-            get { return _ram; }
-            set { _ram = value; }
-        }
-        public string Processor
-        {
-            get { return _proc; }
-            set { _proc = value; }
-        }
 
+        public int Ram { get; set; }
+        public string Proccesor { get; set; }
 
+        public Laptop(int _id, string _name, int _price, int _ram, string _proc)
+            : base(_id, _name, _price)
+        {
+            Ram = _ram;
+            Proccesor = _proc;
+        }
     }
     class Smartphone : Goods
     {
-        private string _cam;
-        private string _screen;
-        public string Camera
+        public string Camera { get; set; }
+        public string Screen { get; set; }
+
+        public Smartphone(int _id, string _name, int _price, string _cam, string _screen)
+            : base(_id, _name, _price)
         {
-            get { return _cam; }
-            set { _cam = value; }
+            Camera = _cam;
+            Screen = _screen;
         }
-        public string Screen
-        {
-            get { return _screen; }
-            set { _screen = value; }
-        }
-        
+
     }
 
 }

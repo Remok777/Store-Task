@@ -6,45 +6,59 @@ namespace Store
     {
         static void Main(string[] args)
         {
-            List<Laptop> Laptops = new List<Laptop>();
-            Laptops.Add(new Laptop { Id = "1", Name = "HP Pavilion Gaming", Price = 900, Ram = 8, Processor = "Intel Core i5-8300H" });
-            Laptops.Add(new Laptop { Id = "2", Name = "Asus X509FL-BQ293", Price = 550, Ram = 88, Processor = "Intel Core i5-8265U" });
-            Laptops.Add(new Laptop { Id = "3", Name = "Apple MacBook Air", Price = 1200, Ram = 88, Processor = "Intel Core i3" });
+            List<Laptop> Laptops = new List<Laptop>
+            {
+                new Laptop(1, "HP Pavilion Gaming", 900, 8, "Intel Core i5-8300H"),
+                new Laptop(2, "Asus X509FL-BQ293", 550, 6, "Intel Core i5-8265U"),
+                new Laptop(3, "Apple MacBook Air", 1200, 8, "Intel Core i3")
+            };
 
-            List<Smartphone> Smartphones = new List<Smartphone>();
-            Smartphones.Add(new Smartphone{Id = "1", Name = "Apple iPhone 6s", Price = 500, Camera = "8MP", Screen = "14``"});
-            Smartphones.Add(new Smartphone{Id = "2", Name = "Apple iPhone X", Price = 960, Camera = "24MP", Screen = "18``"});
-            Smartphones.Add(new Smartphone{Id = "3", Name = "Xiaomi Mi A2", Price = 300, Camera = "12MP", Screen = "15``"});
-            Smartphones.Add(new Smartphone{Id = "4", Name = "Huawei 12X", Price = 450, Camera = "13MP", Screen = "16``"});
+            Dictionary<int, Smartphone> Smartphones = new Dictionary<int, Smartphone>();
+            Smartphones.Add(1, new Smartphone(1, "Apple iPhone 6s", 399, "8MP", "14``"));
+            Smartphones.Add(2, new Smartphone(2, "Apple iPhone X", 960, "24MP", "18``"));
+            Smartphones.Add(3, new Smartphone(3, "Xiaomi Mi A2", 300, "12MP", "15``"));
+            Smartphones.Add(4, new Smartphone(4, "Huawei 12X", 450, "13MP", "16``"));
 
-            LaptopSelection<Laptop> select1 = new LaptopSelection<Laptop>();
+            int result;
 
-            select1.SelectType(Laptops);
-            string id = "0";
-            Console.WriteLine("     Choose the type of electronics:");
+            result = SelectType(Laptops, Smartphones);
+            Select(Laptops, Smartphones, result);
+        }
+        static int SelectType<T, U>(List<T> LapList, Dictionary<int, U> SmartList)
+        {
+            string number;
+            int res;
+            Console.WriteLine("     Select the type of electronics:");
             Console.WriteLine("1 - Laptops");
             Console.WriteLine("2 - Smartphones");
-            Console.Write("1 or 2: ");
-            id = Console.ReadLine();
-            if (id == "1")
+            Console.Write("Type 1 or 2: ");
+            number = Console.ReadLine();
+            res = Convert.ToInt32(number);
+            if(res == 1)
             {
-                Console.Clear();
-                Console.WriteLine("                       Laptops");
-
-                foreach (var laptop in Laptops)
+                foreach (var lap in LapList)
                 {
-                    Console.WriteLine($"{laptop.Id} | {laptop.Name} | {laptop.Price} | {laptop.Ram} | {laptop.Processor} |");
+                    Console.WriteLine($"{lap}");
+                }
+            }
+            else if (res == 2)
+            {
+                foreach (var smart in SmartList)
+                {
+                    Console.WriteLine($"{smart}");
                 }
             }
             else
             {
-                Console.Clear();
-                Console.WriteLine("                    Smartphones");
-
-                foreach (var smartphone in Smartphones)
-                {
-                    Console.WriteLine($"{smartphone.Id} | {smartphone.Name} | {smartphone.Price} | {smartphone.Camera} | {smartphone.Screen} |");
-                }
+                Console.Write("Input is uncorrect");
+            }
+            return res;
+        }
+        static void Select<T, U> (List<T> LapList, Dictionary<int, U> SmartList, int choice)
+        {
+            if(choice == 1)
+            {
+                Console.WriteLine($"{LapList[1]}");
             }
         }
     }
