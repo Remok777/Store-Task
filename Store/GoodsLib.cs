@@ -27,6 +27,10 @@ namespace Store
             Ram = _ram;
             Proccesor = _proc;
         }
+        public override string ToString()
+        {
+            return $"{Id} | {Name} | {Price} | {Ram} | {Proccesor} |";
+        }
     }
     class Smartphone : Goods
     {
@@ -39,7 +43,12 @@ namespace Store
             Camera = _cam;
             Screen = _screen;
         }
+        public override string ToString()
+        {
+            return $"{Id} | {Name} | {Price} | {Camera} | {Screen} |";
+        }
 
     }
 
 }
+            
