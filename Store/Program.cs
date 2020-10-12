@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using Store.Entities;
 using System.Collections.Generic;
+
 namespace Store
 {
     class Program
@@ -29,7 +31,7 @@ namespace Store
             result = SelectType(Laptops, Smartphones);
 
             var selectLaptops = Laptops.Select(laptop => laptop.Id);
-            foreach ( var item in selectLaptops )
+            foreach (var item in selectLaptops)
             {
                 laptopIds.Add(item);
             }
@@ -40,7 +42,7 @@ namespace Store
             }
             SelectGoods(Laptops, Smartphones, laptopIds, smartIds, result);
         }
-        static int SelectType<T, U>(List<T> LapList, List<U> SmartList)
+        private static int SelectType<T, U>(List<T> LapList, List<U> SmartList)
         {
             string number;
             int res;
@@ -50,7 +52,7 @@ namespace Store
             Console.Write("Type 1 or 2: ");
             number = Console.ReadLine();
             res = Convert.ToInt32(number);
-            if(res == 1)
+            if (res == 1)
             {
                 foreach (var lap in LapList)
                 {
@@ -70,7 +72,7 @@ namespace Store
             }
             return res;
         }
-        static void SelectGoods<T, U> (List<T> LapList, List<U> SmartList, List<int> lapId, List<int> smartId, int result)
+        private static void SelectGoods<T, U>(List<T> LapList, List<U> SmartList, List<int> lapId, List<int> smartId, int result)
         {
             string number, confirm;
             int res;
@@ -102,41 +104,63 @@ namespace Store
             Console.Write("Is it the good you chase? (Y/N): ");
             confirm = Console.ReadLine();
             confirm.ToLower();
-            if(confirm == "y")
+            if (confirm == "y")
             {
                 Console.WriteLine("Are you sure that you want to buy it? (Y/N)");
                 confirm = Console.ReadLine();
                 confirm.ToLower();
-                if(confirm == "y")
+                if (confirm == "y")
                 {
-                    string Name, Surname, CardNum, Country, City, PhoneNum;
-                    int i = 1;
-
-                    Console.Clear();
-                    Console.WriteLine("Please enter payment information");
-                    Console.Write("Name: ");
-                    Name = Console.ReadLine();
-                    Console.Write("Surname: ");
-                    Surname = Console.ReadLine();
-                    Console.Write("Credit card number: ");
-                    CardNum = Console.ReadLine();
-                    Console.Write("Destination country: ");
-                    Country = Console.ReadLine();
-                    Console.Write("Destination city: ");
-                    City = Console.ReadLine();
-                    Console.Write("Your phone number: ");
-                    PhoneNum = Console.ReadLine();
-                    List<string> payment = new List<string>()
-                    { Name, Surname, CardNum, Country, City, PhoneNum };
-                    Console.Clear();
-                    Console.WriteLine("Please, check the information you entered");
-                    
-                    foreach ( var item in payment )
+                    PaymentCheck();
+                    Console.Write("Is the information correct? (Y/N):");
+                    confirm = Console.ReadLine();
+                    confirm.ToLower();
+                    if (confirm == "y")
                     {
-                        Console.WriteLine($"{i}){item}");
-                        i++;
+                        Console.WriteLine("Check your order");
+
+                    }
+                    else if (confirm == "n")
+                    {
+                        Console.WriteLine("Please re-enter your information!");
+                        PaymentCheck();
                     }
                 }
+            }
+        }
+        private static List<string> PaymentInfo()
+        {
+            string Name, Surname, CardNum, Country, City, PhoneNum;
+
+            Console.Clear();
+            Console.WriteLine("Please enter payment information");
+            Console.Write("Name: ");
+            Name = Console.ReadLine();
+            Console.Write("Surname: ");
+            Surname = Console.ReadLine();
+            Console.Write("Credit card number: ");
+            CardNum = Console.ReadLine();
+            Console.Write("Destination country: ");
+            Country = Console.ReadLine();
+            Console.Write("Destination city: ");
+            City = Console.ReadLine();
+            Console.Write("Your phone number: ");
+            PhoneNum = Console.ReadLine();
+            List<string> payment = new List<string>()
+                    { Name, Surname, CardNum, Country, City, PhoneNum };
+            Console.Clear();
+            Console.WriteLine("Please, check the information you entered");
+
+            return payment;
+        }
+        private static void PaymentCheck()
+        {
+            List<string> payment = PaymentInfo();
+            int i = 1;
+            foreach (var item in payment)
+            {
+                Console.WriteLine($"{i}){item}");
+                i++;
             }
         }
     }
