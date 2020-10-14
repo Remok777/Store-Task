@@ -111,14 +111,14 @@ namespace Store
                 confirm.ToLower();
                 if (confirm == "y")
                 {
-                    PaymentCheck();
+                    List<string> payment = PaymentCheck();
                     Console.Write("Is the information correct? (Y/N):");
                     confirm = Console.ReadLine();
                     confirm.ToLower();
                     if (confirm == "y")
                     {
                         Console.WriteLine("Check your order");
-
+                        OrderCheck(res, result, LapList, SmartList, payment);
                     }
                     else if (confirm == "n")
                     {
@@ -153,14 +153,43 @@ namespace Store
 
             return payment;
         }
-        private static void PaymentCheck()
+        private static List<string> PaymentCheck()
         {
             List<string> payment = PaymentInfo();
             int i = 1;
+            
             foreach (var item in payment)
             {
                 Console.WriteLine($"{i}){item}");
                 i++;
+            }
+            return payment;
+        }
+
+        private static void OrderCheck<T, U>(int res, int result, List<T> LapList, List<U> SmartList, List<string> payment)
+        {
+            string confirm;
+            if (result == 1)
+            {
+                Console.WriteLine($"Product: {LapList[res]}");
+                Console.WriteLine($"Name: {payment[0]}");
+                Console.WriteLine($"Surname: {payment[1]}");
+                Console.WriteLine($"Destination country, city: {payment[3]}, {payment[4]}");
+            }
+            else if (result == 2)
+            {
+                Console.WriteLine($"Product: {SmartList[res]}");
+                Console.WriteLine($"Name: {payment[0]}");
+                Console.WriteLine($"Surname: {payment[1]}");
+                Console.WriteLine($"Destination country, city: {payment[3]}, {payment[4]}");
+            }
+            Console.Write("Is the information correct?(Y/N): ");
+            confirm = Console.ReadLine();
+            confirm.ToLower();
+            if (confirm == "y")
+            {
+                Console.Clear();
+                Console.WriteLine("Thank you for your order! We believe in your future!");
             }
         }
     }
